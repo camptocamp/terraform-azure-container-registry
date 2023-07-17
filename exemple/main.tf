@@ -1,10 +1,3 @@
-# Azure container registry module
-
-A Terraform module which creates Azure Container Registry
-
-## Usage
-
-```hcl 
 module "acr" {
 
   source = "../.."
@@ -12,7 +5,6 @@ module "acr" {
   registry_name       = "myregistry-acr"
   location            = "francecentral"
   resource_group_name = "default"
-  admin_enable        = false
 
   georeplications = [
     {
@@ -25,4 +17,3 @@ module "acr" {
     }
   ]
 }
-```
