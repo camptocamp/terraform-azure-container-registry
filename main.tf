@@ -36,8 +36,8 @@ resource "azurerm_container_registry_token" "this" {
 }
 
 resource "azurerm_container_registry_token_password" "this" {
-  for_each                    = var.scope_map != null
-  container_registry_token_id = azurerm_container_registry_token.this[var.scope_map].id
+  for_each                    = var.scope_map != null ? { for k, v in var.scope_map : k => v if v != null } : {}
+  container_registry_token_id = element([for k in azurerm_container_registry_token.this : k.id], 0)
 
   password1 {
 

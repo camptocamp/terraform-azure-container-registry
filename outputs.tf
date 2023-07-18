@@ -23,3 +23,8 @@ output "registry_admin_password" {
   sensitive   = true
   value       = azurerm_container_registry.acr.admin_password
 }
+
+output "registry_token_password" {
+  sensitive = true
+  value = azurerm_container_registry_token_password.this.*
+}
