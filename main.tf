@@ -35,6 +35,15 @@ resource "azurerm_container_registry_token" "this" {
   enabled                 = true
 }
 
+resource "azurerm_container_registry_token_password" "this" {
+  for_each                    = var.scope_map != null
+  container_registry_token_id = azurerm_container_registry_token.this[var.scope_map].id
+
+  password1 {
+
+  }
+}
+
 resource "azurerm_management_lock" "this" {
   count      = var.instance_lock ? 1 : 0
   name       = format("%s-mg-lock", azurerm_container_registry.acr.name)
@@ -42,5 +51,3 @@ resource "azurerm_management_lock" "this" {
   lock_level = "CanNotDelete"
   notes      = "This is a security mechanism to prevent accidental deletion. Deleting a acr cluster drops all container registries."
 }
-
-
