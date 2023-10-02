@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/camptocamp/terraform-azure-container-registry/compare/v1.0.0...v1.0.1) (2023-10-02)
+
+
+### Bug Fixes
+
+* **scope-map:** wrong scope map id ([d1f96c5](https://github.com/camptocamp/terraform-azure-container-registry/commit/d1f96c50470c7d0f9807fbdd4154ba0847bcb0e5))
+
 ## 1.0.0 (2023-08-15)
 
 
