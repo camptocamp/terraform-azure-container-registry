@@ -36,17 +36,17 @@ resource "azurerm_container_registry_token" "this" {
   name                    = format("%s", "${each.key}-token")
   resource_group_name     = var.resource_group_name
   container_registry_name = azurerm_container_registry.acr.name
-  scope_map_id            = element([for k in azurerm_container_registry_scope_map.this : k.id], 0)
+  scope_map_id            = azurerm_container_registry_scope_map.this[each.key].id
   enabled                 = true
 
   depends_on = [
-    azurerm_container_registry.acr
+    azurerm_container_registry_scope_map.this
   ]
 }
 
 resource "azurerm_container_registry_token_password" "this" {
   for_each                    = var.scope_map != null ? { for k, v in var.scope_map : k => v if v != null } : {}
-  container_registry_token_id = element([for k in azurerm_container_registry_token.this : k.id], 0)
+  container_registry_token_id = azurerm_container_registry_token.this[each.key].id
 
   password1 {
 
