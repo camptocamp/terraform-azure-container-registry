@@ -13,6 +13,13 @@ resource "azurerm_container_registry" "acr" {
       zone_redundancy_enabled = georeplications.value["zone_redundancy_enabled"]
     }
   }
+  dynamic "identity" {
+    for_each = var.identities
+    content {
+      type         = identity.value.type
+      identity_ids = identity.value.identity_ids
+    }
+  }
 
   tags = var.tags
 
@@ -54,6 +61,20 @@ resource "azurerm_container_registry_token_password" "this" {
   depends_on = [
     azurerm_container_registry.acr
   ]
+}
+
+resource "azurerm_private_endpoint" "this" {
+  location            = var.location
+  name                = format("%s", "${var.registry_name}-acr-pe")
+  resource_group_name = var.resource_group_name
+  subnet_id           = var.subnet_id
+
+  private_service_connection {
+    is_manual_connection           = false
+    name                           = "acrprivatelink"
+    private_connection_resource_id = azurerm_container_registry.acr.id
+    subresource_names              = ["registry"]
+  }
 }
 
 resource "azurerm_management_lock" "this" {

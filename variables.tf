@@ -19,6 +19,21 @@ variable "sku" {
   default     = "Premium"
 }
 
+variable "subnet_id" {
+  description = "Subnet ID"
+  type        = string
+}
+
+variable "identities" {
+  description = "Specifies the type of Managed Service Identity that should be configured on this Container Registry. Possible values are SystemAssigned, UserAssigned, SystemAssigned, UserAssigned (to enable both)."
+  default     = null
+  nullable    = true
+  type = list(object({
+    type         = string
+    identity_ids = optional(list(string))
+  }))
+}
+
 variable "admin_enabled" {
   description = "Specifies whether the admin user is enabled. Defaults to false."
   type        = bool
