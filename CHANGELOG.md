@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/camptocamp/terraform-azure-container-registry/compare/v1.0.1...v1.1.0) (2023-10-16)
+
+
+### Features
+
+* **acr:** add identities and private endpoint ([83bffa1](https://github.com/camptocamp/terraform-azure-container-registry/commit/83bffa14fa53c7b6584886f2ae0b1dd2ea47bb63))
+
 ## [1.0.1](https://github.com/camptocamp/terraform-azure-container-registry/compare/v1.0.0...v1.0.1) (2023-10-02)
 
 
