@@ -51,13 +51,22 @@ variable "georeplications" {
   default = []
 }
 
-
 variable "scope_map" {
   description = "Manages an Azure Container Registry scope map. Scope Maps are a preview feature only available in Premium SKU Container registries."
   type = map(object({
     actions = list(string)
   }))
   default = null
+}
+
+variable "cache_rule" {
+  description = "A list of properties of the cache rules blocks for this Container Registry."
+  type = map(object({
+    source_repo       = string
+    target_repo       = string
+    credential_set_id = optional(string)
+  }))
+  default = {}
 }
 
 variable "tags" {
