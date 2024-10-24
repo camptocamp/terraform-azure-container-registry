@@ -77,6 +77,15 @@ resource "azurerm_private_endpoint" "this" {
   }
 }
 
+resource "azurerm_container_registry_cache_rule" "this" {
+  for_each              = var.cache_rule != null ? { for k, v in var.cache_rule : k => v if v != null } : {}
+  name                  = each.key
+  container_registry_id = azurerm_container_registry.acr.id
+  source_repo           = each.value["source_repo"]
+  target_repo           = each.value["target_repo"]
+  credential_set_id     = each.value["credential_set_id"]
+}
+
 resource "azurerm_management_lock" "this" {
   count      = var.instance_lock ? 1 : 0
   name       = format("%s-mg-lock", azurerm_container_registry.acr.name)
