@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/camptocamp/terraform-azure-container-registry/compare/v1.1.0...v1.2.0) (2024-10-28)
+
+
+### Features
+
+* **cache:** permit to set cache rules ([63a7223](https://github.com/camptocamp/terraform-azure-container-registry/commit/63a7223d8a67cfe2aaaf5f75036219e922b865c0))
+
 ## [1.1.0](https://github.com/camptocamp/terraform-azure-container-registry/compare/v1.0.1...v1.1.0) (2023-10-16)
 
 
