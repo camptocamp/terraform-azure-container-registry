@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/camptocamp/terraform-azure-container-registry/compare/v1.2.0...v1.2.1) (2024-11-04)
+
+
+### Bug Fixes
+
+* add variable to activate private endpoint ([8180b15](https://github.com/camptocamp/terraform-azure-container-registry/commit/8180b15cdfa239a8818256a249e80f4ce32a88a3))
+
 ## [1.2.0](https://github.com/camptocamp/terraform-azure-container-registry/compare/v1.1.0...v1.2.0) (2024-10-28)
 
 
