@@ -80,3 +80,9 @@ variable "instance_lock" {
   type        = bool
   default     = true
 }
+
+variable "private_endpoint" {
+  description = "If true, creates private endpoint (only valid for premium sku)"
+  type        = bool
+  default     = true
+}

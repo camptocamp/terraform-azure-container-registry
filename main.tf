@@ -64,6 +64,7 @@ resource "azurerm_container_registry_token_password" "this" {
 }
 
 resource "azurerm_private_endpoint" "this" {
+  count               = var.private_endpoint ? 1 : 0
   location            = var.location
   name                = format("%s", "${var.registry_name}-acr-pe")
   resource_group_name = var.resource_group_name
