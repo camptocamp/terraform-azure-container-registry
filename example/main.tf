@@ -1,5 +1,4 @@
 module "acr" {
-
   source = "../.."
 
   registry_name       = "myregistry-acr"

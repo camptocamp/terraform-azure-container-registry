@@ -22,9 +22,7 @@ resource "azurerm_container_registry" "acr" {
   }
 
   tags = var.tags
-
 }
-
 
 resource "azurerm_container_registry_scope_map" "this" {
   for_each                = var.scope_map != null ? { for k, v in var.scope_map : k => v if v != null } : {}
@@ -55,9 +53,8 @@ resource "azurerm_container_registry_token_password" "this" {
   for_each                    = var.scope_map != null ? { for k, v in var.scope_map : k => v if v != null } : {}
   container_registry_token_id = azurerm_container_registry_token.this[each.key].id
 
-  password1 {
+  password1 {}
 
-  }
   depends_on = [
     azurerm_container_registry.acr
   ]
@@ -136,5 +133,5 @@ resource "azurerm_management_lock" "this" {
   name       = format("%s-mg-lock", azurerm_container_registry.acr.name)
   scope      = azurerm_container_registry.acr.id
   lock_level = "CanNotDelete"
-  notes      = "This is a security mechanism to prevent accidental deletion. Deleting a acr cluster drops all container registries."
+  notes      = "This is a security mechanism to prevent accidental deletion. Deleting an ACR cluster drops all container repositories."
 }
