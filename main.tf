@@ -78,6 +78,50 @@ resource "azurerm_private_endpoint" "this" {
   }
 }
 
+resource "azurerm_container_registry_cache_rule" "default" {
+  for_each = var.enable_default_cache_rules ? {} : {
+    # Docker Hub
+    "dockerhub" = {
+      source_repo = "docker.io/*"
+      target_repo = "dockerhub/*"
+      # This credential set is created manually in the ACR instance and is not part of this module.
+      # It is used to authenticate to Docker Hub to avoid rate limits and to access private repositories if needed.
+      credential_set_id = "${azurerm_container_registry.acr.id}/credentialSets/dockerhub"
+    },
+    # Docker Hardened Images
+    "dhiio" = {
+      source_repo = "dhi.io/*"
+      target_repo = "dhiio/*"
+      # This credential set is created manually in the ACR instance and is not part of this module.
+      # It is used to authenticate to Docker Hub to avoid rate limits.
+      credential_set_id = "${azurerm_container_registry.acr.id}/credentialSets/dockerhub"
+    },
+    # GitHub Container Registry
+    "ghcrio" = {
+      source_repo = "ghcr.io/*"
+      target_repo = "ghcrio/*"
+      # This credential set is created manually in the ACR instance and is not part of this module.
+      # It is used to authenticate to GitHub Container Registry (ghcr.io) for caching purposes and to access private repositories if needed.
+      credential_set_id = "${azurerm_container_registry.acr.id}/credentialSets/ghcrio"
+    },
+    # Quay
+    "quayio" = {
+      source_repo = "quay.io/*"
+      target_repo = "quayio/*"
+    },
+    # Official Kubernetes registry
+    "registryk8sio" = {
+      source_repo = "registry.k8s.io/*"
+      target_repo = "k8sio/*"
+    }
+  }
+  name                  = each.key
+  container_registry_id = azurerm_container_registry.acr.id
+  source_repo           = each.value["source_repo"]
+  target_repo           = each.value["target_repo"]
+  credential_set_id     = each.value["credential_set_id"]
+}
+
 resource "azurerm_container_registry_cache_rule" "this" {
   for_each              = var.cache_rule != null ? { for k, v in var.cache_rule : k => v if v != null } : {}
   name                  = each.key

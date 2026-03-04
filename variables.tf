@@ -69,6 +69,12 @@ variable "cache_rule" {
   default = {}
 }
 
+variable "enable_default_cache_rules" {
+  description = "If true, creates default cache rules for popular public container registries (Docker Hub, GitHub Container Registry, Quay.io and Kubernetes registry)."
+  type        = bool
+  default     = false
+}
+
 variable "tags" {
   description = "A mapping of tags to assign to the resources."
   type        = map(string)
