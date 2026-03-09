@@ -81,7 +81,6 @@ variable "default_cache_rules" {
     enabled = bool
     credential_set_ids = object({
       dockerhub = optional(string, null)
-      dhiio     = optional(string, null)
       ghcr      = optional(string, null)
       quayio    = optional(string, null)
     })
@@ -90,7 +89,6 @@ variable "default_cache_rules" {
     enabled = false
     credential_set_ids = {
       dockerhub = null
-      dhiio     = null
       ghcr      = null
       quayio    = null
     }
