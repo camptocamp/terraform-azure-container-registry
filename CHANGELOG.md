@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/camptocamp/terraform-azure-container-registry/compare/v1.3.0...v1.3.1) (2026-03-09)
+
+
+### Bug Fixes
+
+* remove unsupported upstream registry ([557ddca](https://github.com/camptocamp/terraform-azure-container-registry/commit/557ddcafba9fa1fbd688760c2d505b1641d3f315))
+
 ## [1.3.0](https://github.com/camptocamp/terraform-azure-container-registry/compare/v1.2.1...v1.3.0) (2026-03-09)
 
 
