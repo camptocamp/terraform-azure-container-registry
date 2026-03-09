@@ -41,7 +41,7 @@ variable "admin_enabled" {
 }
 
 variable "georeplications" {
-  description = "A list of properties of the geo-replication blocks for this Container Registry. Only availiable for Premium SKU."
+  description = "A list of properties of the geo-replication blocks for this Container Registry. Only available for Premium SKU."
 
   type = list(object({
     location                = string
@@ -69,10 +69,32 @@ variable "cache_rule" {
   default = {}
 }
 
-variable "enable_default_cache_rules" {
-  description = "If true, creates default cache rules for popular public container registries (Docker Hub, GitHub Container Registry, Quay.io and Kubernetes registry)."
-  type        = bool
-  default     = false
+variable "default_cache_rules" {
+  description = <<-EOT
+    If true, creates default cache rules for popular public container registries (Docker Hub, GitHub Container Registry, Quay.io and Kubernetes registry).
+  
+    You might reference a `credential_set_id` for each default registry in the `cache_rule` variable. This is useful to avoid hitting rate limits on public registries and to access private repositories if needed. 
+    
+    WARNING: These credential sets are not created by this module and need to be created manually in the ACR instance. For that reason, you might want to enable the default cache rules but not reference any credential set, and then create the credential sets manually after the ACR instance is created and reference their names in this variable.
+  EOT
+  type = object({
+    enabled = bool
+    credential_set_ids = object({
+      dockerhub = optional(string, null)
+      dhiio     = optional(string, null)
+      ghcr      = optional(string, null)
+      quayio    = optional(string, null)
+    })
+  })
+  default = {
+    enabled = false
+    credential_set_ids = {
+      dockerhub = null
+      dhiio     = null
+      ghcr      = null
+      quayio    = null
+    }
+  }
 }
 
 variable "tags" {
@@ -82,7 +104,7 @@ variable "tags" {
 }
 
 variable "instance_lock" {
-  description = "If true, it’s not possible to remove the azure container registry"
+  description = "If true, it's not possible to remove the azure container registry"
   type        = bool
   default     = true
 }

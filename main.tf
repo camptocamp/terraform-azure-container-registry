@@ -76,42 +76,37 @@ resource "azurerm_private_endpoint" "this" {
 }
 
 resource "azurerm_container_registry_cache_rule" "default" {
-  for_each = var.enable_default_cache_rules ? {} : {
+  for_each = var.default_cache_rules.enabled ? {
     # Docker Hub
     "dockerhub" = {
-      source_repo = "docker.io/*"
-      target_repo = "dockerhub/*"
-      # This credential set is created manually in the ACR instance and is not part of this module.
-      # It is used to authenticate to Docker Hub to avoid rate limits and to access private repositories if needed.
-      credential_set_id = "${azurerm_container_registry.acr.id}/credentialSets/dockerhub"
+      source_repo       = "docker.io/*"
+      target_repo       = "dockerhub/*"
+      credential_set_id = var.default_cache_rules.credential_set_ids.dockerhub != null ? "${azurerm_container_registry.acr.id}/credentialSets/${var.default_cache_rules.credential_set_ids.dockerhub}" : null
     },
     # Docker Hardened Images
     "dhiio" = {
-      source_repo = "dhi.io/*"
-      target_repo = "dhiio/*"
-      # This credential set is created manually in the ACR instance and is not part of this module.
-      # It is used to authenticate to Docker Hub to avoid rate limits.
-      credential_set_id = "${azurerm_container_registry.acr.id}/credentialSets/dockerhub"
+      source_repo       = "dhi.io/*"
+      target_repo       = "dhiio/*"
+      credential_set_id = var.default_cache_rules.credential_set_ids.dhiio != null ? "${azurerm_container_registry.acr.id}/credentialSets/${var.default_cache_rules.credential_set_ids.dhiio}" : null
     },
     # GitHub Container Registry
     "ghcrio" = {
-      source_repo = "ghcr.io/*"
-      target_repo = "ghcrio/*"
-      # This credential set is created manually in the ACR instance and is not part of this module.
-      # It is used to authenticate to GitHub Container Registry (ghcr.io) for caching purposes and to access private repositories if needed.
-      credential_set_id = "${azurerm_container_registry.acr.id}/credentialSets/ghcrio"
+      source_repo       = "ghcr.io/*"
+      target_repo       = "ghcrio/*"
+      credential_set_id = var.default_cache_rules.credential_set_ids.ghcr != null ? "${azurerm_container_registry.acr.id}/credentialSets/${var.default_cache_rules.credential_set_ids.ghcr}" : null
     },
     # Quay
     "quayio" = {
-      source_repo = "quay.io/*"
-      target_repo = "quayio/*"
+      source_repo       = "quay.io/*"
+      target_repo       = "quayio/*"
+      credential_set_id = var.default_cache_rules.credential_set_ids.quayio != null ? "${azurerm_container_registry.acr.id}/credentialSets/${var.default_cache_rules.credential_set_ids.quayio}" : null
     },
     # Official Kubernetes registry
     "registryk8sio" = {
       source_repo = "registry.k8s.io/*"
       target_repo = "k8sio/*"
     }
-  }
+  } : {}
   name                  = each.key
   container_registry_id = azurerm_container_registry.acr.id
   source_repo           = each.value["source_repo"]
