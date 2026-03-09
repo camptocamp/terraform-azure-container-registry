@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.0](https://github.com/camptocamp/terraform-azure-container-registry/compare/v1.2.1...v1.3.0) (2026-03-09)
+
+
+### Features
+
+* add a way to reference custom credential set names for default cache rules ([cc3edff](https://github.com/camptocamp/terraform-azure-container-registry/commit/cc3edfffeeb7ba895bb44c05c5adf051c56efb12))
+* add default cache rules for popular registries ([fd53ad2](https://github.com/camptocamp/terraform-azure-container-registry/commit/fd53ad2875702d2d1192fd7361b862384086bece))
+
+
+### Bug Fixes
+
+* put a default null value for registry without credentials ([7fd3322](https://github.com/camptocamp/terraform-azure-container-registry/commit/7fd3322d0fbfc5edb041562c937233a1ce0b9e45))
+
 ## [1.2.1](https://github.com/camptocamp/terraform-azure-container-registry/compare/v1.2.0...v1.2.1) (2024-11-04)
 
 
