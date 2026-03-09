@@ -103,8 +103,9 @@ resource "azurerm_container_registry_cache_rule" "default" {
     },
     # Official Kubernetes registry
     "registryk8sio" = {
-      source_repo = "registry.k8s.io/*"
-      target_repo = "k8sio/*"
+      source_repo       = "registry.k8s.io/*"
+      target_repo       = "k8sio/*"
+      credential_set_id = null
     }
   } : {}
   name                  = each.key
