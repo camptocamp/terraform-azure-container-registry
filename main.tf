@@ -87,7 +87,7 @@ resource "azurerm_container_registry_cache_rule" "default" {
     "ghcrio" = {
       source_repo       = "ghcr.io/*"
       target_repo       = "ghcrio/*"
-      credential_set_id = var.default_cache_rules.credential_set_ids.ghcr != null ? "${azurerm_container_registry.acr.id}/credentialSets/${var.default_cache_rules.credential_set_ids.ghcr}" : null
+      credential_set_id = var.default_cache_rules.credential_set_ids.ghcrio != null ? "${azurerm_container_registry.acr.id}/credentialSets/${var.default_cache_rules.credential_set_ids.ghcrio}" : null
     },
     # Quay
     "quayio" = {
