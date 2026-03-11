@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.2](https://github.com/camptocamp/terraform-azure-container-registry/compare/v1.3.1...v1.3.2) (2026-03-11)
+
+
+### Bug Fixes
+
+* correct the parameter preventing the link to credential set of ghcr.io ([65054c6](https://github.com/camptocamp/terraform-azure-container-registry/commit/65054c658ce4f6dcc4ff515c06ad43290f04b433))
+
 ## [1.3.1](https://github.com/camptocamp/terraform-azure-container-registry/compare/v1.3.0...v1.3.1) (2026-03-09)
 
 
